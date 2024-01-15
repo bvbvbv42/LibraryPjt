@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+   
+   <!-- 데이터베이스에 연결하는 객체 -->  
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+      <property name="url" value="jdbc:mariadb://127.0.0.1:3306/db_library"/>
+      <property name="username" value="root"/>
+      <property name="password" value="1234"/>
+   </bean>  
+   
+   <!-- mvc에서 만든 jdbcTemplate와 아무관계없음 스프링이갖고있는데 core인 JdbcTemplate를 사용하겠다-->
+   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+   		<!--  ref="dataSource"는 위에 bean을 사용하겠다. -->
+   		<!-- <property name="dataSource" ref="dataSource"/> db를 좀더쉽게하기위해 이름을 datasource 사용 -->
+   		<property name="dataSource" ref="dataSource"/>
+   </bean>
+   
+   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+   		<property name="dataSource" ref="dataSource"/>
+   </bean>    
+        
+</beans>
