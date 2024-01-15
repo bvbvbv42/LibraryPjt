@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,6 +18,9 @@ public class MemberDao {
 	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	// 아이디 중복 검사
 	public boolean isMemberCheck(String m_id) {
@@ -39,19 +43,16 @@ public class MemberDao {
 				+ "VALUES(?,?,?,?,?,?,NOW(),NOW())";
 		List<String> args = new ArrayList<String>();
 		args.add(vo.getM_id());
-		args.add(vo.getM_pw());
+		args.add(passwordEncoder.encode(vo.getM_pw()));   //passwordEncoder 안에 encode라는 함수가 있음
 		args.add(vo.getM_name());
 		args.add(vo.getM_gender());
 		args.add(vo.getM_mail());
 		args.add(vo.getM_phone());
 		
-		int result = -1;
-		jdbcTemplate.update(sql,args.toArray()); //리스트를 배열로만듦
+		int result = -1; 
+		result = jdbcTemplate.update(sql, args.toArray());
 		// 잘안됬으면 -1 , 잘됬으면 업데이트한 갯수만큼
 		return result;
-		
-		
-		
 		
 	}
 	

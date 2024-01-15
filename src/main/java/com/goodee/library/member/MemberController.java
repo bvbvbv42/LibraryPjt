@@ -26,22 +26,15 @@ public class MemberController {
 	}
 	
 	// 회원가입 기능 수행
-	@RequestMapping(value="create", method=RequestMethod.POST)
+	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String createMember(MemberVo vo) {
 		LOGGER.info("[MemberController] createMember();");
-		memberService.createMember(vo);
-		return "";
+		String nextPage = "member/create_success";
+		if(memberService.createMember(vo) <= 0) {
+			nextPage = "member/create_fail";
+		}
+		return nextPage;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 }
