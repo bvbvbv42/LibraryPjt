@@ -5,13 +5,33 @@
 	<link href="<c:url value='/resources/css/include/nav.css'/>" rel="stylesheet" type="text/css">	
 	<nav>
 	   <div id="nav_wrap">
-	      <div class="menu">
+<%@ page import="com.goodee.library.member.MemberVo" %>
+	   	  <%
+	   	  	MemberVo loginedMember = (MemberVo)session.getAttribute("loginMember"); //key 값으로 가져온다
+	   	  	if(loginedMember == null){
+	   	  	
+	   	  %>
+		  	      <div class="menu">
 	         <ul>
 	            <li>
-	               <a>로그인</a>
+	               <a href="<c:url value='/member/login'/>">로그인</a> <!-- a태그는 기본적으로 GET메소드 -->
 	            </li>
 	            <li>
 	               <a href="<c:url value='/member/create' />">회원가입</a>
+	            </li>
+	         </ul>
+	      </div>
+	      <%} else{ %>
+	      	      <div class="menu">
+	         <ul>
+	            <li>
+	               <a href="<c:url value='/member/logout'/>">로그아웃</a> <!-- a태그는 기본적으로 GET메소드 -->
+	            </li>
+	            <li>
+	               <a href="<c:url value='' />">계정수정</a>
+	            </li>
+	            <li>
+	               <a href="<c:url value='/member' />">회원목록</a>
 	            </li>
 	         </ul>
 	      </div>
@@ -21,5 +41,6 @@
 	            <input type="button" value="검색">
 	         </form>
 	      </div>
+		  <% } %>
 	   </div>
 	</nav>

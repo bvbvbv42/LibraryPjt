@@ -41,6 +41,7 @@
          </div>
       </div>
    </section>  
+   
    <!-- 유효성검사? 회원가입클릭했을대 -->
    <script type="text/javascript">
 	   function createMemberForm() {
@@ -70,7 +71,9 @@
 		         alert('전화번호를 입력하세요.');
 		         form.m_phone.focus();
 		      } else {
-		         form.submit();
+		         /* 클라이언트가 요청하는것을 submit */
+		    	  form.submit();
+		         
 		      }
 		   }
    </script> 
