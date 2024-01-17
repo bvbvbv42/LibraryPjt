@@ -38,7 +38,15 @@ public class MemberService {
 	public List<MemberVo> listupMember(){
 		LOGGER.info("[MemberService] listupMember();");
 		return dao.selectMemberList();
-		
-		
+	}
+	
+	public int modifyMember(MemberVo vo) {
+		LOGGER.info("[MemberService] modifyMember();");
+		return dao.updateMember(vo);
+	}
+	
+	public int getLoginedMemberVo(MemberVo vo) {
+		LOGGER.info("[MemberService] getLoginedMemberVo();");
+		return dao.SessionmodifyMember(vo);
 	}
 }

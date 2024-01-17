@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/member")   // 클래스 모든 메소드앞에 /member가 붙게된다.
@@ -109,4 +109,48 @@ public class MemberController {
 		model.addAttribute("memberVos", memberVos);
 		return "member/listup";
 	}
+	
+	// 회원 정보 수정 화면 이동
+	// url에서 /member/4(m_no) 라는 값을 받게오면 그 4라는값을 id로 넣겠다.
+	//@RequestMapping(value="/{m_id}", method=RequestMethod.GET)
+	@RequestMapping(value="/{m_no}", method=RequestMethod.GET)
+	public String modifyMember(@PathVariable int m_no, HttpSession session) {
+		LOGGER.info("[MemberController] modifyMember();");
+		// 다른 사람의 정보 수정 할수있다고 기준(관리자 있어야함)
+		// 1. url에 있는 m_no 기준 select
+		// 2. 수정 화면 
+		
+		// 내 정보만 수정 O
+		// 1. 세션에 있는 m_no 기준
+		// 2. 수정 화면
+		MemberVo loginedMemberVo = (MemberVo)session.getAttribute("loginMember");
+		String nextPage = "";
+		if(loginedMemberVo == null) {
+			// 로그인 화면 이동
+			nextPage = "redirect:/member/login";
+		} else {
+			// 수정 화면 이동
+			nextPage = "member/modify_form";
+		}
+		return nextPage;
+	}
+	
+	// 회원 정보 수정 기능
+	@RequestMapping(value="/{m_no}", method=RequestMethod.POST)
+	public String modifyMemberConfirm(MemberVo vo, HttpSession session) {
+		LOGGER.info("[MemberController] modifyMemberConfirm();");
+		// 1. 회원 정보 수정(DB)  insert 는 넣은갯수, update는 변환갯수 사용 ,정보 수정 이 3개는 int다
+		int result = memberService.modifyMember(vo);
+		if(result > 0) {
+			// 2. 세션 정보 변경 , 비어있는 vo 만듦
+			MemberVo loginedMemberVo = new MemberVo();
+			loginedMemberVo = memberService.getLoginedMemberVo(vo.getM_no());
+			session.setAttribute("loginMember", loginedMemberVo);
+			session.setMaxInactiveInterval(60*30);			
+			// 3. 수정 결과 화면 이동
+		} else {
+			// 3. 실패 화면 이동
+		}
+	}
+	
 }

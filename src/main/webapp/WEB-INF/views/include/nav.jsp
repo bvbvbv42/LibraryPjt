@@ -28,7 +28,8 @@
 	               <a href="<c:url value='/member/logout'/>">로그아웃</a> <!-- a태그는 기본적으로 GET메소드 -->
 	            </li>
 	            <li>
-	               <a href="<c:url value='' />">계정수정</a>
+	            <!-- 맨위 MemberVo loginedMember = (MemberVo)session.getAttribute("loginMember"); //key 값으로 가져온다 와같음  -->
+	               <a href="<c:url value='/member/${loginMember.m_no}'/>">계정수정</a>
 	            </li>
 	            <li>
 	               <a href="<c:url value='/member' />">회원목록</a>
