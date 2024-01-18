@@ -144,12 +144,33 @@ public class MemberController {
 		if(result > 0) {
 			// 2. 세션 정보 변경 , 비어있는 vo 만듦
 			MemberVo loginedMemberVo = new MemberVo();
-			loginedMemberVo = memberService.getLoginedMemberVo(vo.getM_no());
+			loginedMemberVo = memberService.getLoginedMemberVo(vo.getM_no()); //vo.getM_no() = 4다 
 			session.setAttribute("loginMember", loginedMemberVo);
 			session.setMaxInactiveInterval(60*30);			
-			// 3. 수정 결과 화면 이동
+			// 3. 성공 화면 이동
+			return "member/modify_success";
 		} else {
 			// 3. 실패 화면 이동
+			return "member/modify_fail";
+		}
+	}
+	
+	// 비밀번호 설정 화면 이동
+	@RequestMapping(value="/findPassword", method=RequestMethod.GET)
+	public String findPasswordForm() {
+		LOGGER.info("[MemberController] findPasswordForm();");
+		return "member/find_password_form";
+	}
+	
+	// 비밀번호 설정 기능
+	@RequestMapping(value="/findPassword", method=RequestMethod.POST)
+	public String findPasswordConfirm(MemberVo vo) { //vo 를 받아서 전달
+		LOGGER.info("[MemberController] findPasswordConfirm();");
+		int result = memberService.findPasswordConfirm(vo);
+		if(result <= 0) {
+			return "member/find_password_fail";
+		}else {
+			return "member/find_password_success";
 		}
 	}
 	

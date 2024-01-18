@@ -45,8 +45,23 @@ public class MemberService {
 		return dao.updateMember(vo);
 	}
 	
-	public int getLoginedMemberVo(MemberVo vo) {
+	// 회원 단일 정보 조회
+	public MemberVo getLoginedMemberVo(int m_no) { // MemberVo : 정보들을 틀에 담아서 보내줌 ,int m_no 계속바뀜 ==> int abcd이렇게적어도 상관없음 
 		LOGGER.info("[MemberService] getLoginedMemberVo();");
-		return dao.SessionmodifyMember(vo);
+		return dao.selectMemberOne(m_no);
+	}
+
+	public int findPasswordConfirm(MemberVo vo) {
+		// 1. 입력한 정보와 일치하는 사용자가 있는지 확인
+		MemberVo selectedMember = dao.selectMemberOne(vo); // vo 정보를 전달 //3개의 정보가있음
+	    int result = 0;
+	    if(selectedMember != null) {
+	    	// 2. 새로운 비밀번호 생성
+	    	// 3. 생성된 비밀번호 업데이트
+	    	// 4. 메일보내기
+	    }
+		
+		
+		return result;
 	}
 }

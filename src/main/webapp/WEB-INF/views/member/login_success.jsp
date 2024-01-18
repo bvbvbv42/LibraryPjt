@@ -18,7 +18,7 @@
          </div>
          <div class="others">
             <a href="<c:url value='/member/logout'/>">로그아웃</a> <!-- a태그는 기본적으로 GET메소드 -->
-            <a>회원정보수정</a>
+            <a href="<c:url value='/member/${loginMember.m_no}'/>">계정수정</a>
          </div>
       </div>
    </section>         

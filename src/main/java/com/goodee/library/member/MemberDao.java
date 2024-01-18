@@ -1,7 +1,5 @@
 package com.goodee.library.member;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
@@ -184,10 +180,19 @@ public class MemberDao {
 		return result;
 	}
 	
-	public int SessionmodifyMember(MemberVo vo) {
-		LOGGER.info("[MemberDao] updateMember();");
-		int result = sqlSession.update(namespace + "SessionmodifyMember", vo);
-		return "";
+	// 회원 단일 정보 데이터베이스에서 조회(m_no 기준)
+	public MemberVo selectMemberOne(int m_no) { //int m_no 기준으로 정보를가져와줘
+		LOGGER.info("[MemberDao] selectMemberOne();");
+		MemberVo resultVo = new MemberVo(); 
+		resultVo = sqlSession.selectOne(namespace + "selectMemberOne", m_no);
+		return resultVo;
+	}
+	
+	// 아이디, 이름, 메일 기준 회원 조회
+	public MemberVo selectMemberOne(MemberVo vo) {
+		MemberVo memberVo =
+				sqlSession.selectOne(namespace + "selectMemberForPassword",vo);
+		return memberVo;
 	}
 	
 }
