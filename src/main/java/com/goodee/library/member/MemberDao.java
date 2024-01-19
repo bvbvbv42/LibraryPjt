@@ -1,7 +1,9 @@
 package com.goodee.library.member;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -193,6 +195,37 @@ public class MemberDao {
 		MemberVo memberVo =
 				sqlSession.selectOne(namespace + "selectMemberForPassword",vo);
 		return memberVo;
+	}
+	
+	// String newPassword = newPassword라고 부르는 일꾼이다
+	public int updatePassword(String m_id, String newPassword) { //dao는 updatePassword이라는 일꾼이 있는데 vo가뭔지 updatePassword인지 모름
+		LOGGER.info("[MemberDao] updatePassword();");
+		
+		//************************
+		// Map 이라는 껍데기에 담아서 전달 ( vo는 9가지나있음) , List는 칸이 무한이다(칸마다 0,1,2,3,4,,,,늘어날수있다)
+		// Array 는 칸이 제한적이다
+		// Map은 네모난 박스고 그안에 정보가 다저장되있다. (그래서 순서가없고 이름(키)로 저장되어있다.)
+		//************************
+		
+		//**************** throws exception : 에러나던말던 그냥 수행해라*************
+		
+		// key도 string value도 string
+		Map<String,String> map = new HashMap<String,String>();
+		
+		//Map 은 인터페이스 HashMap은 클래스다. Map에있는 hashmap을 사용하겠다
+		//value값이 object면 string이던 int 다 가능
+		
+		// map에 정보 집어넣기
+		map.put("m_id", m_id);
+		map.put("m_pw", passwordEncoder.encode(newPassword)); 
+		
+		int result = -1; // 업데이트 초기값은 -1로 많이 사용 //DB접근했으면 접근만해도 0이 나올수있음 , -1은 아옝 DB에 근처도 가지못했다.
+		try {
+			return sqlSession.update(namespace + "updatePassword", map);
+		}catch(Exception e){
+			LOGGER.error(e.toString()); //error를 string으로 만들고 
+		}
+		return result;
 	}
 	
 }

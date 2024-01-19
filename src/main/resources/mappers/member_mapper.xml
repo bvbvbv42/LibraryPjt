@@ -68,4 +68,22 @@
 			m_mail = #{m_mail}
 		</where>
 	</select>
+	
+	<update id = "updatePassword" parameterType = "hashMap">
+	<!-- tbl member 테이블에 m_pw 를 
+	#{m_pw}로 변경  
+	m_mod_date를 현재시간으로 변경
+	조건 : m_id가 #{m_id}-->
+	
+	UPDATE tbl_member
+	<!-- dao에 map에 key값을 m_id로했으니깐 -->
+	SET m_pw = #{m_pw},
+	m_mod_date = NOW()
+	
+	<where>
+		m_id = #{m_id}
+	</where>
+	
+	
+	</update>
 </mapper>

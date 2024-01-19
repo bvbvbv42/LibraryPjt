@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
+// 서버역할을 컨트롤러가한다
 @Controller
 @RequestMapping("/member")   // 클래스 모든 메소드앞에 /member가 붙게된다.
 public class MemberController {
@@ -110,6 +112,19 @@ public class MemberController {
 		return "member/listup";
 	}
 	
+	// prehandler  클라인트가 요청을보내 컨트롤러 도착전
+	// posthandler 컨트롤러가 실행후 view 보내기직전
+	// after compli  view가 실행후 바로
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 회원 정보 수정 화면 이동
 	// url에서 /member/4(m_no) 라는 값을 받게오면 그 4라는값을 id로 넣겠다.
 	//@RequestMapping(value="/{m_id}", method=RequestMethod.GET)
@@ -123,16 +138,16 @@ public class MemberController {
 		// 내 정보만 수정 O
 		// 1. 세션에 있는 m_no 기준
 		// 2. 수정 화면
-		MemberVo loginedMemberVo = (MemberVo)session.getAttribute("loginMember");
-		String nextPage = "";
-		if(loginedMemberVo == null) {
-			// 로그인 화면 이동
-			nextPage = "redirect:/member/login";
-		} else {
-			// 수정 화면 이동
-			nextPage = "member/modify_form";
-		}
-		return nextPage;
+//		MemberVo loginedMemberVo = (MemberVo)session.getAttribute("loginMember");
+//		String nextPage = "";
+//		if(loginedMemberVo == null) {
+//			// 로그인 화면 이동
+//			nextPage = "redirect:/member/login";
+//		} else {
+//			// 수정 화면 이동
+//			nextPage = "member/modify_form";
+//		}
+		return "member/modify_form";
 	}
 	
 	// 회원 정보 수정 기능
