@@ -17,7 +17,7 @@
 	               <a href="<c:url value='/member/login'/>">로그인</a> <!-- a태그는 기본적으로 GET메소드 -->
 	            </li>
 	            <li>
-	               <a href="<c:url value='/member/create' />">회원가입</a>
+	               <a href="<c:url value='/member/create'/>">회원가입</a>
 	            </li>
 	         </ul>
 	      </div>
@@ -33,6 +33,9 @@
 	            </li>
 	            <li>
 	               <a href="<c:url value='/member' />">회원목록</a>
+	            </li>
+	            <li>
+	            	<a href="<c:url value='/book/create'/>">도서등록</a>
 	            </li>
 	         </ul>
 	      </div>
