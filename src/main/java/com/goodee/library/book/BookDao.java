@@ -1,5 +1,7 @@
 package com.goodee.library.book;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +30,23 @@ public class BookDao {
 		
 		
 		return sqlSession.insert(namespace + "insertBook", vo);
-		
-		
+	}
+	
+	public List<BookVo> selectBookList(BookVo vo){
+		LOGGER.info("[BookDao] selectBookList;");
+		List<BookVo> bookVos = sqlSession.selectList(namespace + "selectBookList", vo);
+		return bookVos;
+	}
+	
+	public int selectBookCount(String b_name) {
+		LOGGER.info("[BookDao] selectBookCount();");
+		int totalCount = sqlSession.selectOne(namespace + "selectBookCount", b_name);
+		return totalCount;
+	}
+	
+	public BookVo selectBookOne(int b_no) {
+		LOGGER.info("[BookDao] selectBookOne();");
+		BookVo vo = sqlSession.selectOne(namespace + "selectBookOne", b_no);
+		return vo;
 	}
 }

@@ -7,6 +7,36 @@
 		VALUES(#{b_thumbnail}, #{b_name}, #{b_author}, #{b_publisher}, #{b_publish_year}, NOW())
 	</insert>
 
+	<select id="selectBookList" parameterType = "com.goodee.library.book.BookVo" resultType="com.goodee.library.book.BookVo">
+		SELECT * FROM tbl_book
+		<if test="b_name != null and b_name.equals('') == false">
+			<where>
+			<!-- 	b_name = #{b_name} -->			
+			<!-- CONCAT() => 괄호안을 합쳐줌  -->
+			b_name LIKE CONCAT('%', #{b_name},'%')
+			</where>
+		</if>
+		<!-- DESC 큰것부터 작은순으로 -->
+		ORDER BY b_no DESC		
+		LIMIT #{limit_pageNo}, #{pageSize}
+	</select>
+	
+	<select id="selectBookCount" parameterType = "String" resultType="int">
+		SELECT COUNT(*) FROM tbl_book
+			<if test="b_name != null and b_name.equals('') == false">
+				<where>
+				b_name LIKE CONCAT('%', #{b_name},'%')
+				</where>
+			</if>
+	</select>
+	
+	<!-- select는 result는 무조건있어야한다 -->
+	<select id="selectBookOne" parameterType = "int" resultType="com.goodee.library.book.BookVo">
+		SELECT * FROM tbl_book
+		<where>
+			b_no=#{b_no}
+		</where>
+	</select>
 </mapper>
 
 
