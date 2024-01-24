@@ -41,4 +41,10 @@ public class BookService {
 		return vo;
 	}
 	
+	public int modifyConfirm(BookVo vo) {
+		LOGGER.info("[BookService] modifyConfirm();");
+		
+		return bookDao.updateBook(vo);
+	}
+	
 }
