@@ -18,7 +18,10 @@ public class UploadFileService { // 저장된 파일 정보를 string으로 받�
 		String fileExtension = fileOriName.substring(
 				fileOriName.lastIndexOf("."),fileOriName.length()); 
 		// 서버에 저장하기
-		String uploadDir = "C:\\library\\upload\\";
+		// 그냥 sts3 버젼 ->String uploadDir = "C:\\library\\upload\\";
+		
+		// 젠킨스 버전
+		String uploadDir = "/var/lib/tomcat9/webapps/upload/";
 		
 		// UUID 만들기
 		UUID uuid = UUID.randomUUID();
