@@ -10,8 +10,8 @@
       <!-- gmail이 구축한 mail을 잠깐 쓰겠다  -->
       <property name="host" value="smtp.gmail.com" />
       <property name="port" value="587" />
-      <property name="username" value="devkgn13@gmail.com" />
-      <property name="password" value="oawz rtyv rjes octl" />
+      <property name="username" value="" />
+      <property name="password" value="" />
       <property name="javaMailProperties">
          <props>
             <prop key="mail.smtp.auth">true</prop>
