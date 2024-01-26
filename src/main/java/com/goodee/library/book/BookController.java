@@ -23,7 +23,7 @@ public class BookController {
 	private static final Logger LOGGER = 
 			LoggerFactory.getLogger(BookController.class);
 	
-	
+	// 어노테이션
 	@Autowired
 	UploadFileService uploadFileService;
 	
