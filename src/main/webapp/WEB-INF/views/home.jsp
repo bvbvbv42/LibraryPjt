@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>        <!-- 누군가 보게되면 UTF-8로 반영해주�
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>도서관리시스템</title>
+	<title>도서관리시스템 수정버젼</title>
 	<!-- jstl이 보유하고있는 c:url을 사용:contextpath가 앞에 있다고하고 진행함 -->
 	<link href="<c:url value='/resources/css/home.css'/>" rel="stylesheet" type="text/css">
 </head>
